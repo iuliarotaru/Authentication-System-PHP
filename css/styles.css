@@ -1,0 +1,16 @@
+input,
+form {
+  display: block;
+  margin-top: 1em;
+}
+button {
+  margin-top: 2em;
+  background-color: pink;
+}
+.error {
+  background: rgba(255, 0, 0, 0.5);
+}
+.soft {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.3);
+}
