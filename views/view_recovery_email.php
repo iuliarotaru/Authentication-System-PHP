@@ -10,7 +10,7 @@ require_once("{$_SERVER['DOCUMENT_ROOT']}/PHPMailer/src/SMTP.php");
 require_once("{$_SERVER['DOCUMENT_ROOT']}/PHPMailer/src/Exception.php");
 
 function send_recovery_email($email, $url){
-$password = file_get_contents("{$_SERVER['DOCUMENT_ROOT']}/views/password.txt");
+$configs = include(__DIR__.'/credentials.php');
 
 //Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
@@ -21,8 +21,8 @@ try {
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'examkea@gmail.com';                     //SMTP username
-    $mail->Password   = $password;                               //SMTP password
+    $mail->Username   = $configs['username'];                     //SMTP username
+    $mail->Password   = $configs['password'];                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 

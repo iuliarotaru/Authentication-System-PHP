@@ -1,9 +1,13 @@
  <?php
 //Check if the user is logged in
 session_start();
-if(!$_SESSION['uuid']) {
+if(! isset($_SESSION['uuid'])) {
 header('Location: /login');
 exit(); }
+//Check if the user is a customer
+if($_SESSION['role'] != 1) {
+  header('Location: /therapist');
+  exit(); }
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/views/view_top.php');
 require_once(__DIR__.'/../db/db.php');

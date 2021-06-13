@@ -14,3 +14,11 @@ button {
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.3);
 }
+.user-img {
+  width: 50%;
+}
+.user {
+  padding: 20px;
+  margin: 10px;
+  background-color: sandybrown;
+}

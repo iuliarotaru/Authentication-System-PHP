@@ -1,4 +1,23 @@
 // ----------------------------------------------------------
+// Block user with AJAX
+async function block_user(user_id) {
+  let div_user = event.target;
+  const button_text = div_user.innerText;
+  div_user.innerText = "Blocking....";
+  let connection = await fetch(`/users/block/${user_id}`, {
+    method: "POST",
+  });
+  let response = await connection.text();
+  if (!connection.ok) {
+    alert(response);
+    div_user.innerText = button_text;
+    return;
+  }
+  div_user.innerText = "This user is blocked";
+  div_user.disabled = true;
+}
+
+// ----------------------------------------------------------
 // Signup form AJAX
 const signup_form = document.getElementById("signup_form");
 if (signup_form) {
@@ -127,9 +146,13 @@ function showFile() {
   let thumbnail = new Image();
   thumbnail.width = "50";
   thumbnail.height = "50";
+  const image = document.querySelector("#signup_form img");
+  if (image) {
+    image.parentNode.removeChild(image);
+  }
   event.target.insertAdjacentElement("afterend", thumbnail);
-  var file = document.querySelector("input[type=file]").files[0];
-  var reader = new FileReader();
+  const file = document.querySelector("input[type=file]").files[0];
+  const reader = new FileReader();
   reader.onload = function () {
     // console.log(event.target)
     // demoImage.src = reader.result;

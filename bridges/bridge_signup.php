@@ -94,7 +94,7 @@ if ($_POST['user_confirm_password'] != $_POST['user_password'] ) {
 // ----------------------------------------------------------
 // Connect to the db and insert values
 require_once(__DIR__.'/../db/db.php');
-// require_once(__DIR__.'/../views/view_email.php');
+require_once(__DIR__.'/../views/view_email.php');
 
 try {
 $name = $_POST['user_name'];
@@ -108,7 +108,7 @@ $token = bin2hex(random_bytes(16));
 $random_image_name = bin2hex(random_bytes(16)).".$extension";
 move_uploaded_file($_FILES['my_profile_image']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/images/".$random_image_name);
 
-$q = $db->prepare('INSERT INTO users VALUES(:uuid, :name, :last_name, :email, :phone, :password, :active, :token, :verified, :image_path)');
+$q = $db->prepare('INSERT INTO users VALUES(:uuid, :name, :last_name, :email, :phone, :password, :active, :token, :verified, :image_path, :user_role)');
 $q->bindValue(':uuid', bin2hex(random_bytes(16)));
 $q->bindValue(':name', $name);
 $q->bindValue(':last_name', $last_name);
@@ -119,6 +119,7 @@ $q->bindValue(':active', 1);
 $q->bindValue(':token', $token);
 $q->bindValue(':verified', 0);
 $q->bindValue(':image_path', $random_image_name);
+$q->bindValue(':user_role', 1);
 $q->execute();
 
 if (! $q->rowCount()) {

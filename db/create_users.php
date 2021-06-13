@@ -17,8 +17,10 @@ try{
     token        VARCHAR(32),
     verified     INT,
     image_path   VARCHAR(255) NOT NULL,
-    PRIMARY KEY(uuid)
-  )');
+    user_role    BIGINT(20) unsigned,
+    PRIMARY KEY(uuid),
+    FOREIGN KEY (user_role) REFERENCES user_role (id_user_role) ON DELETE CASCADE
+    )');
   $q->execute();
   echo 'Table created successfully';
 }catch(PDOException $ex){

@@ -51,12 +51,18 @@ try {
         header("Location: /login/error/$error_message");
         exit();
     }
-
+    
     session_start();
     $_SESSION['uuid'] = $user->uuid;
-    header('Location: /admin');
-    exit();
-
+    $_SESSION['role'] = $user->user_role;
+    if ($user->user_role == 1) {
+        header('Location: /admin');
+        exit();
+    }
+    else if ($user->user_role == 2) {
+        header('Location: /therapist');
+        exit();
+    }
     }catch(PDOException $ex) {
     echo $ex;
     }

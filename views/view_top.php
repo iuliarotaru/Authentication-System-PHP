@@ -13,6 +13,6 @@
   <a href="/">Signup</a>
   <a href="/login">Login</a>
   <a href="/admin">Admin</a>
-  <a href="/users">Users</a>
+  <a href="/therapist">Therapist</a>
 </nav>
 
