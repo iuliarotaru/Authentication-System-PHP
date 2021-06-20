@@ -33,11 +33,14 @@ post('/create-password-recovery', 'db/create_password_recovery.php');
 post('/create-user-role', 'db/create_user_role.php');
 post('/login', 'bridges/bridge_login.php');
 post('/forgot-password', 'bridges/bridge_forgot_password.php');
+post('/posts/$post_id/$like_or_dislike', 'apis/api_like_or_dislike.php');
 post('/seed-users', 'db/seed_users.php');
+post('/search', 'apis/api_search.php');
 post('/signup', 'bridges/bridge_signup.php');
 post('/recover-password', 'bridges/bridge_recover_password.php');
+post('/update-image', 'apis/api_update_image.php');
 post('/update-profile', 'bridges/bridge_update.php');
 post('/users/block/$user_id', 'apis/api_block_user.php');
 // post('/verify-phone', '')
 
-any('/404','views/view_404.php');
+any('/404', 'views/view_404.php');

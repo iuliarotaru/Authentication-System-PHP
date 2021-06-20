@@ -1,4 +1,66 @@
 // ----------------------------------------------------------
+// Toggle text
+function toggleText() {
+  let parent_element = event.target.parentElement;
+  let points = parent_element.querySelector("#points");
+  let show_more_text = parent_element.querySelector("#moreText");
+  let button_text = parent_element.querySelector("#textButton");
+
+  if (points.style.display === "none") {
+    show_more_text.style.display = "none";
+    points.style.display = "inline";
+    button_text.innerHTML = "Read more";
+  } else {
+    show_more_text.style.display = "inline";
+    points.style.display = "none";
+    button_text.innerHTML = "Read less";
+  }
+}
+// ----------------------------------------------------------
+// Like a post with AJAX
+async function like_post(post_id) {
+  // console.log(event.target);
+  let like_button = event.target;
+  let parentElement = like_button.parentNode;
+  let connection = await fetch(`/posts/${post_id}/1`, {
+    method: "POST",
+  });
+  let response = await connection.text();
+  if (!connection.ok) {
+    console.log(response);
+  }
+  parentElement.removeChild(like_button);
+  parentElement.insertAdjacentHTML(
+    "beforeend",
+    `<button id="dislike-button" class="icon icon-liked" onclick="dislike_post('${post_id}')"></button>`
+  );
+  let likes = document.querySelector("#likes").textContent;
+  let new_likes = parseInt(likes) + 1;
+  document.querySelector("#likes").innerHTML = new_likes;
+}
+// ----------------------------------------------------------
+// Dislike a post with AJAX
+async function dislike_post(post_id) {
+  console.log(event.target);
+  let dislike_button = event.target;
+  let parentElement = dislike_button.parentNode;
+  let connection = await fetch(`/posts/${post_id}/0`, {
+    method: "POST",
+  });
+  let response = await connection.text();
+  if (!connection.ok) {
+    console.log(response);
+  }
+  parentElement.removeChild(dislike_button);
+  parentElement.insertAdjacentHTML(
+    "beforeend",
+    `<button id="like-button" class="icon icon-like" onclick="like_post('${post_id}')"></button>`
+  );
+  let likes = document.querySelector("#likes").textContent;
+  let new_likes = parseInt(likes) - 1;
+  document.querySelector("#likes").innerHTML = new_likes;
+}
+// ----------------------------------------------------------
 // Block user with AJAX
 async function block_user(user_id) {
   let div_user = event.target;
@@ -46,6 +108,54 @@ if (signup_form) {
   });
 }
 // ----------------------------------------------------------
+// Update image AJAX
+async function updatePicture() {
+  document.querySelectorAll(".upload_image_messages").forEach((element) => {
+    element.parentNode.removeChild(element);
+  });
+  const img = event.target.files;
+  if (img.length == 0) {
+    event.target.insertAdjacentElement(
+      "afterend",
+      "<div class='upload_image_messages'> Please insert a picture </div>"
+    );
+  } else {
+    const valid_extensions = ["png", "jpg", "jpeg", "gif"];
+    const extension = img[0].type.split("/").pop();
+    if (!valid_extensions.includes(extension)) {
+      event.target.insertAdjacentHTML(
+        "afterend",
+        "<div class='upload_image_messages'> Please upload a valid image </div>"
+      );
+    } else if (img[0].size > 2000000) {
+      event.target.insertAdjacentHTML(
+        "afterend",
+        "<div class='upload_image_messages'> Image file exceeds 2MB </div>"
+      );
+    } else {
+      const file = document.querySelector("input[type=file]").files[0];
+      const form_data = new FormData();
+      form_data.append("my_updated_image", file);
+      let connection = await fetch("/update-image", {
+        method: "POST",
+        body: form_data,
+      });
+      let response = await connection.text();
+      if (!connection.ok) {
+        console.log(response);
+      } else {
+        showFile();
+        let divElem = document.createElement("div");
+        divElem.innerHTML =
+          "<div class='upload_image_messages'> Your profile image has been successfully updated </div>";
+        document
+          .querySelector("#update_image")
+          .insertAdjacentElement("beforebegin", divElem);
+      }
+    }
+  }
+}
+// ----------------------------------------------------------
 // Update form AJAX
 const update_form = document.getElementById("update_form");
 if (update_form) {
@@ -56,7 +166,6 @@ if (update_form) {
       update_message.parentNode.removeChild(update_message);
     }
     // Validate form
-
     if (validate()) {
       let connection = await fetch("/update-profile", {
         method: "POST",
@@ -79,20 +188,83 @@ if (update_form) {
   });
 }
 // ----------------------------------------------------------
+// Search for a user
+let search_timer; // used to stop the search timer
+function search() {
+  const noSearchResults = document.querySelector("#no_results");
+  if (search_timer) {
+    clearTimeout(search_timer);
+  }
+
+  if (event.target.value.length >= 2) {
+    search_timer = setTimeout(async function () {
+      let connection = await fetch("/search", {
+        method: "POST",
+        body: new FormData(document.querySelector("#form_search_for")),
+      });
+
+      if (!connection.ok) {
+        console.log(connection.ok);
+        let response = await connection.text();
+        console.log(response);
+        // document
+        //   .querySelector("#form_search_for")
+        //   .insertAdjacentHTML("beforeend", response);
+      } else {
+        let users = await connection.json();
+        //hide every user
+        document.querySelectorAll("[data-id]").forEach((element) => {
+          element.classList.add("hidden");
+        });
+        if (users.length != 0) {
+          if (noSearchResults) {
+            noSearchResults.parentNode.removeChild(noSearchResults);
+          }
+          //show only users that match the search
+          users.forEach((user) => {
+            document
+              .querySelector(`[data-id='${user.uuid}']`)
+              .classList.remove("hidden");
+          });
+        } else {
+          if (!noSearchResults) {
+            document
+              .querySelector("#form_search_for")
+              .insertAdjacentHTML(
+                "beforeend",
+                "<div id='no_results'> No results matching your search </div>"
+              );
+          }
+        }
+      }
+    }, 500);
+  } else {
+    //remove hidden
+    document.querySelectorAll("[data-id]").forEach((element) => {
+      element.classList.remove("hidden");
+    });
+    if (noSearchResults) {
+      noSearchResults.parentNode.removeChild(noSearchResults);
+    }
+  }
+}
+
+// ----------------------------------------------------------
 // Frontend validation
 function validate() {
   const form = event.target;
+  console.log(form);
 
   //Clear errors
 
-  all("[data-validate]").forEach((element) => {
+  form.querySelectorAll("[data-validate]").forEach((element) => {
     element.classList.remove("error");
   });
 
   //Then check for errors
   let min;
   let max;
-  all("[data-validate]").forEach((element) => {
+  form.querySelectorAll("[data-validate]").forEach((element) => {
     switch (element.getAttribute("data-validate")) {
       case "str":
         min = element.getAttribute("data-min");
@@ -129,8 +301,23 @@ function validate() {
         if (img.length == 0) {
           element.insertAdjacentHTML(
             "afterend",
-            "<div> ADAUGA O POZA IN MORTII TAI </div>"
+            "<div> Please insert a picture </div>"
           );
+        } else {
+          const valid_extensions = ["png", "jpg", "jpeg", "gif"];
+          const extension = img[0].type.split("/").pop();
+          if (!valid_extensions.includes(extension)) {
+            element.insertAdjacentHTML(
+              "afterend",
+              "<div> Please upload a valid image </div>"
+            );
+          }
+          if (img[0].size > 2000000) {
+            element.insertAdjacentHTML(
+              "afterend",
+              "<div> Image file exceeds 2MB </div>"
+            );
+          }
         }
     }
   });
@@ -140,26 +327,20 @@ function validate() {
 function clear_error() {
   event.target.classList.remove("error");
 }
-
+function triggerClick() {
+  document.querySelector("#my_profile_image").click();
+}
 function showFile() {
-  console.log(event.target);
-  let thumbnail = new Image();
-  thumbnail.width = "50";
-  thumbnail.height = "50";
-  const image = document.querySelector("#signup_form img");
-  if (image) {
-    image.parentNode.removeChild(image);
-  }
-  event.target.insertAdjacentElement("afterend", thumbnail);
   const file = document.querySelector("input[type=file]").files[0];
-  const reader = new FileReader();
-  reader.onload = function () {
-    // console.log(event.target)
-    // demoImage.src = reader.result;
-    thumbnail.src = reader.result;
-  };
-  reader.readAsDataURL(file);
-  // console.log(file)
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      document
+        .querySelector("#image_placeholder")
+        .setAttribute("src", reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
 }
 
 //Library

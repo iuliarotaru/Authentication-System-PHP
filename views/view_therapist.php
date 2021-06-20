@@ -18,11 +18,18 @@ try {
     $q = $db->prepare('SELECT * FROM users WHERE user_role = 1 ORDER BY active DESC');
     $q->execute();
     $users = $q->fetchAll();
+
+?>
+    <form onsubmit="return false" id="form_search_for">
+        <label for="search_for"> Search</label>
+        <input type="text" name="search_for" oninput="search()">
+    </form>
+    <?php
     echo '<div id="users">';
     foreach ($users as $user) {
         unset($user['password']);
-?>
-        <div class="user">
+    ?>
+        <div class="user" data-id="<?= $user["uuid"] ?>">
             <div>
                 <img src="/images/<?= $user["image_path"] ?>" class="user-img" />
             </div>

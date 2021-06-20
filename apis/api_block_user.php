@@ -18,7 +18,6 @@ require_once(__DIR__ . '/../db/db.php');
 
 // ----------------------------------------------------------
 // Connect to the db and delete user
-require_once(__DIR__ . '/../db/db.php');
 require_once(__DIR__ . '/../views/view_block_email.php');
 
 try {
