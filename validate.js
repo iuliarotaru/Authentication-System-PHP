@@ -1,5 +1,58 @@
 // ----------------------------------------------------------
-// Toggle text
+// Toggle home menu
+function toggleHomeMenu() {
+  // Nav menu
+  let links = document.querySelector("#nav_links");
+  let close_icon = document.querySelector(".close");
+  let hamburger_icon = document.querySelector(".hamburger");
+  // Home menu
+  let left_links = document.querySelector(".admin_left");
+  let right_button = document.querySelector(".admin_right");
+  if (
+    !left_links.classList.contains("hide_home_links") &&
+    !right_button.classList.contains("hide_home_links")
+  ) {
+    left_links.classList.add("hide_home_links");
+    right_button.classList.add("hide_home_links");
+  } else {
+    left_links.classList.remove("hide_home_links");
+    right_button.classList.remove("hide_home_links");
+    links.classList.add("hide_nav_links");
+    hamburger_icon.style.display = "block";
+    if (close_icon) {
+      close_icon.style.display = "none";
+    }
+  }
+}
+// ----------------------------------------------------------
+// Toggle hamburger menu
+function toggleHamburger() {
+  // Nav menu
+  let links = document.querySelector("#nav_links");
+  let close_icon = document.querySelector(".close");
+  let hamburger_icon = document.querySelector(".hamburger");
+  // Home menu
+  let left_links = document.querySelector(".admin_left");
+  let right_button = document.querySelector(".admin_right");
+
+  if (!links.classList.contains("hide_nav_links")) {
+    links.classList.add("hide_nav_links");
+    hamburger_icon.style.display = "block";
+    if (close_icon) {
+      close_icon.style.display = "none";
+    }
+  } else {
+    links.classList.remove("hide_nav_links");
+    hamburger_icon.style.display = "none";
+    if (close_icon) {
+      close_icon.style.display = "block";
+    }
+    left_links.classList.add("hide_home_links");
+    right_button.classList.add("hide_home_links");
+  }
+}
+// ----------------------------------------------------------
+// Toggle text see more
 function toggleText() {
   let parent_element = event.target.parentElement;
   let points = parent_element.querySelector("#points");
@@ -75,7 +128,7 @@ async function block_user(user_id) {
     div_user.innerText = button_text;
     return;
   }
-  div_user.innerText = "This user is blocked";
+  div_user.innerText = "Blocked";
   div_user.disabled = true;
 }
 
@@ -99,10 +152,16 @@ if (signup_form) {
         return;
       } else {
         signup_form.remove();
-        let divElem = document.createElement("div");
-        divElem.innerHTML =
-          "<div> A verification link has been sent to your email </div>";
-        document.body.appendChild(divElem);
+        const signup_title = document.querySelector(".signup_title");
+        console.log(signup_title);
+        // let divElem = document.createElement("div");
+        // divElem.innerHTML =
+        //   "<div> A verification link has been sent to your email </div>";
+        // document.body.appendChild(divElem);
+        signup_title.insertAdjacentHTML(
+          "afterend",
+          '<span class="verification_text"> A verification link has been sent to your email </span> <div class="verification_illustration"> </div>'
+        );
       }
     }
   });
@@ -115,7 +174,7 @@ async function updatePicture() {
   });
   const img = event.target.files;
   if (img.length == 0) {
-    event.target.insertAdjacentElement(
+    event.target.insertAdjacentHTML(
       "afterend",
       "<div class='upload_image_messages'> Please insert a picture </div>"
     );
@@ -123,15 +182,19 @@ async function updatePicture() {
     const valid_extensions = ["png", "jpg", "jpeg", "gif"];
     const extension = img[0].type.split("/").pop();
     if (!valid_extensions.includes(extension)) {
-      event.target.insertAdjacentHTML(
-        "afterend",
-        "<div class='upload_image_messages'> Please upload a valid image </div>"
-      );
+      document
+        .querySelector("#update_image")
+        .insertAdjacentHTML(
+          "beforebegin",
+          "<div class='upload_image_messages'> Please upload a valid image </div>"
+        );
     } else if (img[0].size > 2000000) {
-      event.target.insertAdjacentHTML(
-        "afterend",
-        "<div class='upload_image_messages'> Image file exceeds 2MB </div>"
-      );
+      document
+        .querySelector("#update_image")
+        .insertAdjacentHTML(
+          "beforebegin",
+          "<div class='upload_image_messages'> Image file exceeds 2MB </div>"
+        );
     } else {
       const file = document.querySelector("input[type=file]").files[0];
       const form_data = new FormData();
@@ -145,12 +208,12 @@ async function updatePicture() {
         console.log(response);
       } else {
         showFile();
-        let divElem = document.createElement("div");
-        divElem.innerHTML =
-          "<div class='upload_image_messages'> Your profile image has been successfully updated </div>";
         document
           .querySelector("#update_image")
-          .insertAdjacentElement("beforebegin", divElem);
+          .insertAdjacentHTML(
+            "beforebegin",
+            "<div class='upload_image_messages'> Your profile image has been successfully updated </div>"
+          );
       }
     }
   }
@@ -212,6 +275,7 @@ function search() {
         //   .insertAdjacentHTML("beforeend", response);
       } else {
         let users = await connection.json();
+        console.log(users);
         //hide every user
         document.querySelectorAll("[data-id]").forEach((element) => {
           element.classList.add("hidden");
@@ -260,6 +324,9 @@ function validate() {
   form.querySelectorAll("[data-validate]").forEach((element) => {
     element.classList.remove("error");
   });
+  form.querySelectorAll(".image_error").forEach((element) => {
+    element.parentNode.removeChild(element);
+  });
 
   //Then check for errors
   let min;
@@ -299,23 +366,23 @@ function validate() {
       case "img":
         const img = element.files;
         if (img.length == 0) {
-          element.insertAdjacentHTML(
+          element.parentNode.insertAdjacentHTML(
             "afterend",
-            "<div> Please insert a picture </div>"
+            "<div class='image_error'> Please insert a picture </div>"
           );
         } else {
           const valid_extensions = ["png", "jpg", "jpeg", "gif"];
           const extension = img[0].type.split("/").pop();
           if (!valid_extensions.includes(extension)) {
-            element.insertAdjacentHTML(
+            element.parentNode.insertAdjacentHTML(
               "afterend",
-              "<div> Please upload a valid image </div>"
+              "<div class='image_error'> Please upload a valid image </div>"
             );
           }
           if (img[0].size > 2000000) {
-            element.insertAdjacentHTML(
+            element.parentNode.insertAdjacentHTML(
               "afterend",
-              "<div> Image file exceeds 2MB </div>"
+              "<div class='image_error'> Image file exceeds 2MB </div>"
             );
           }
         }

@@ -36,7 +36,6 @@ if (strlen($_POST['user_name']) > 20) {
     $error_message = 'Name must be maximum 20 characters';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 
@@ -45,14 +44,12 @@ if (strlen($_POST['user_last_name']) < 2) {
     $error_message = 'Last name must be at least 2 characters';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 if (strlen($_POST['user_last_name']) > 20) {
     $error_message = 'Last name must be maximum 20 characters';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 
@@ -61,7 +58,6 @@ if (!preg_match('/^[1-9]\d{7}$/', $_POST['user_phone'])) {
     $error_message = 'Phone number must have 8 digits and not start with 0';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 
@@ -70,7 +66,6 @@ if (!preg_match('/^[a-z0-9]+[\._]?[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$/', $
     $error_message = 'Invalid email';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 
@@ -79,14 +74,12 @@ if (strlen($_POST['user_password']) < 8) {
     $error_message = 'Password must be at least 8 characters';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 if (strlen($_POST['user_password']) > 50) {
     $error_message = 'Password must be maximum 50 characters';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 
@@ -95,7 +88,6 @@ if ($_POST['user_confirm_password'] != $_POST['user_password']) {
     $error_message = 'Passwords dont match';
     http_response_code(400);
     echo $error_message;
-    // header("Location: /signup/error/$error_message");
     exit();
 }
 

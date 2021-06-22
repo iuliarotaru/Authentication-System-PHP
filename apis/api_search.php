@@ -24,7 +24,7 @@ if (strlen($_POST['search_for']) > 20) {
 require_once(__DIR__ . '/../db/db.php');
 try {
     $q = $db->prepare('SELECT uuid, name, last_name, email, phone, active, image_path FROM users WHERE name LIKE :name LIMIT 20');
-    $q->bindValue(':name', '%' . trim($_POST['search_for']) . '%');
+    $q->bindValue(':name', '%' . trim($_POST['search_for']) . '%'); //find the string that matches the letters written
     $q->execute();
     $users = $q->fetchAll();
 

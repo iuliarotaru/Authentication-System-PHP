@@ -1,0 +1,26 @@
+// ----------------------------------------------------------
+// Colors
+
+$white: white;
+$gray: #fbfbfb;
+$black: black;
+$main: #ffeded;
+$main-dark: #2f4858;
+$darker-pink: #b2a4b1;
+$medium: #888395;
+$medium-to-dark: #5b6478;
+$dark-gray: #7c7c7c;
+$light-gray: lightgrey;
+
+// ----------------------------------------------------------
+// Breakpoints
+$tablet: 700px;
+$laptop: 1024px;
+$desktop: 1100px;
+
+// ----------------------------------------------------------
+// Fonts
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap");
+$playfair: "Playfair Display", serif;
+$open-sans: "Open Sans", sans-serif;

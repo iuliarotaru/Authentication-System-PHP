@@ -3,26 +3,26 @@
 // Backend Recover password validation
 
 if (strlen($_POST['user_new_password']) < 8) {
-$display_message = "Your password should have minimum 8 characters";
-header("Location: /login/error/$display_message"); //change location
-exit();
+    $display_message = "Your password should have minimum 8 characters";
+    header("Location: /login?error=$display_message"); //change location
+    exit();
 }
 if (strlen($_POST['user_new_password']) > 50) {
     $display_message = "Your password should have maximum 50 characters";
-    header("Location: /login/error/$display_message"); //change location
+    header("Location: /login?error=$display_message"); //change location
     exit();
 }
 // ----------------------------------------------------------
 // Validate if the passwords are the same
-if( $_POST['user_confirm_password'] != $_POST['user_new_password']) {
+if ($_POST['user_confirm_password'] != $_POST['user_new_password']) {
     $display_message = "Your passwords should match";
-    header("Location: /login/error/$display_message"); //change location
+    header("Location: /login?error=$display_message"); //change location
     exit();
 }
 
 // ----------------------------------------------------------
 // Connect to the db and update password
-require_once(__DIR__.'/../db/db.php');
+require_once(__DIR__ . '/../db/db.php');
 
 
 try {
@@ -33,21 +33,21 @@ try {
     $q->execute();
     $user = $q->fetch();
 
-   //if it doesn't exist in database, error message
-   if ( ! $user) {
-    $display_error = 'Invalid token';
-    header("Location: /login/error/$display_error");
-    exit();
-   }
+    //if it doesn't exist in database, error message
+    if (!$user) {
+        $display_error = 'Invalid token';
+        header("Location: /login?error=$display_error");
+        exit();
+    }
 
-   $user_uuid = $user->uuid;
+    $user_uuid = $user->uuid;
 
     $q = $db->prepare('UPDATE users SET password=:password WHERE uuid=:uuid');
     $q->bindValue(':uuid', $user_uuid);
     $q->bindValue(':password', password_hash($_POST['user_new_password'], PASSWORD_DEFAULT));
     $q->execute();
-    
-    if (! $q->rowCount()) {
+
+    if (!$q->rowCount()) {
         header('Location: /signup');
         exit();
     }
@@ -58,8 +58,8 @@ try {
     $user = $q->fetch();
 
     $display_error = "Your password has successfully been changed";
-    header("Location:/login/error/$display_error");
+    header("Location:/login?notification=$display_error");
     exit();
-    }catch(PDOException $ex) {
+} catch (PDOException $ex) {
     echo $ex->getMessage();
-    }
+}

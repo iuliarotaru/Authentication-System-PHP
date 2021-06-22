@@ -1,0 +1,831 @@
+@use 'variables';
+// ----------------------------------------------------------
+// Global and navigation
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100vh;
+  // background-color: variables.$main;
+  font-family: variables.$open-sans;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.close {
+  display: none;
+}
+nav #nav_links {
+  display: block;
+}
+nav #nav_links.hide_nav_links {
+  display: none;
+}
+.header {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(218, 199, 206, 0.45);
+  background-color: variables.$main;
+}
+nav {
+  #nav_links {
+    background-color: variables.$main;
+    position: fixed;
+    top: 80px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    box-shadow: 0px 2px 2px 2px rgba(218, 199, 206, 0.45);
+  }
+  a {
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+    color: variables.$black;
+  }
+  .hamburger_icon {
+    position: fixed;
+    cursor: pointer;
+    top: 1rem;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+}
+.home_main {
+  .home_left {
+    background-color: variables.$main;
+  }
+}
+@media (min-width: variables.$tablet) {
+  .home_main {
+    background-color: variables.$main;
+
+    .home_left {
+      display: flex;
+      align-items: center;
+      h1 {
+        font-size: 70px;
+      }
+    }
+  }
+}
+@media (min-width: variables.$laptop) {
+  .header {
+    background-color: variables.$main;
+    img {
+      background-color: variables.$main;
+    }
+    nav {
+      width: 85%;
+    }
+    .hamburger_icon {
+      display: none;
+    }
+
+    #visitor_nav #nav_links,
+    a {
+      display: flex;
+      align-items: center;
+      background-color: variables.$main;
+      box-shadow: none;
+      top: 0;
+      left: auto;
+      right: auto;
+      position: inherit;
+      justify-content: space-between;
+      .desktop_signup {
+        display: inline-block;
+        background-color: variables.$main-dark;
+        text-decoration: none;
+        color: variables.$white;
+        padding: 10px 24px 10px 24px;
+        border-radius: 25px;
+      }
+      #left_nav_links {
+        display: flex;
+        align-items: center;
+      }
+      #right_nav_links {
+        // background-color: variables.$white;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  #logged_nav {
+    background-color: variables.$main;
+  }
+}
+// Logged navigation
+#logged_nav#nav_links {
+  display: block;
+}
+#logged_nav#nav_links.hide_nav_links {
+  display: none;
+}
+#logged_nav {
+  #nav_links {
+    background-color: variables.$main;
+    position: absolute;
+    top: 105px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    box-shadow: 0px 2px 2px 2px rgba(218, 199, 206, 0.45);
+  }
+  a {
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+    color: variables.$black;
+    position: initial;
+  }
+  width: auto;
+  #logged_image_placeholder {
+    width: 50%;
+    border-radius: 40px;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    border: 2px solid variables.$main-dark;
+  }
+}
+@media (min-width: variables.$tablet) {
+  #logged_nav {
+    #nav_links {
+      width: auto;
+      left: unset;
+    }
+  }
+}
+.display_error {
+  text-align: center;
+  color: red;
+  margin-top: 10px;
+}
+.display_notification {
+  text-align: center;
+  margin-top: 10px;
+}
+// ----------------------------------------------------------
+// Home page
+.home_main {
+  flex: 1;
+  .home_page_illustration {
+    background-image: url("/assets/illustration.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 50vh;
+  }
+}
+.home_left {
+  padding: 20px;
+  h1 {
+    margin-top: 40px;
+    font-size: 40px;
+    .heading_highlight {
+      color: variables.$medium-to-dark;
+    }
+  }
+  .signup_button {
+    display: inline-block;
+    background-color: variables.$main-dark;
+    text-decoration: none;
+    color: variables.$white;
+    padding: 10px 24px 10px 24px;
+    margin-top: 40px;
+    border-radius: 25px;
+  }
+  .therapist_link {
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    a {
+      margin-right: 10px;
+      color: variables.$black;
+    }
+    img {
+      width: 5%;
+    }
+  }
+}
+@media (min-width: variables.$tablet) {
+  .home_main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "left image";
+  }
+  .home_left {
+    grid-area: left;
+  }
+}
+
+// ----------------------------------------------------------
+// Signup page
+.signup_main {
+  padding: 20px;
+  .signup_title {
+    h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+  #signup_form {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    .form_element {
+      margin-bottom: 20px;
+      #image_placeholder {
+        border-radius: 50px;
+        cursor: pointer;
+        height: 100px;
+        width: 100px;
+        border: 2px solid gray;
+        flex-shrink: 0;
+      }
+
+      input {
+        display: block;
+      }
+      input:not([type="file"]) {
+        box-sizing: border-box;
+        border: none;
+        background-color: variables.$gray;
+        padding: 10px 15px;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid #b4b4b4;
+        margin-top: 5px;
+        &.error {
+          background-color: rgba(255, 0, 0, 0.5);
+        }
+      }
+    }
+    .upload_image {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      img {
+        margin-right: 10px;
+      }
+    }
+    .signup_button {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: variables.$main-dark;
+      text-decoration: none;
+      color: variables.$white;
+      padding: 10px 30px 10px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+  }
+}
+@media (min-width: variables.$tablet) {
+  .signup_main {
+    display: block;
+    text-align: center;
+    form {
+      display: inline-block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+  }
+}
+// ----------------------------------------------------------
+// Verification mail page
+.signup_main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  .verification_text {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .verification_illustration {
+    flex: 1;
+    background-image: url("/assets/verification-mail.svg");
+    background-position: center;
+    background-size: contain; //sa cuprinda poza
+    background-repeat: no-repeat;
+    min-height: 50vh;
+  }
+}
+// ----------------------------------------------------------
+// Login page
+.login_main {
+  padding: 20px;
+  .login_title {
+    h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+  #login_form {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    .form_element {
+      margin-bottom: 20px;
+      input {
+        display: block;
+        box-sizing: border-box;
+        border: none;
+        background-color: variables.$gray;
+        padding: 10px 15px;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid #b4b4b4;
+        margin-top: 5px;
+        &.error {
+          background-color: rgba(255, 0, 0, 0.5);
+        }
+      }
+    }
+    #login_button {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+      background-color: variables.$main-dark;
+      text-decoration: none;
+      color: variables.$white;
+      padding: 10px 30px 10px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+    .forgot_password {
+      display: flex;
+      justify-content: flex-end;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}
+// ----------------------------------------------------------
+// Forgot password
+.forgot_password_main {
+  padding: 20px;
+  .forgot_password_title {
+    h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+  #forgot_password_form {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    .form_element {
+      margin-bottom: 20px;
+      input {
+        display: block;
+        box-sizing: border-box;
+        border: none;
+        background-color: variables.$gray;
+        padding: 10px 15px;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid #b4b4b4;
+        margin-top: 5px;
+        &.error {
+          background-color: rgba(255, 0, 0, 0.5);
+        }
+      }
+    }
+    .forgot_password_button {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+      background-color: variables.$main-dark;
+      text-decoration: none;
+      color: variables.$white;
+      padding: 10px 30px 10px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+  }
+}
+// ----------------------------------------------------------
+// Recover password
+.recover_password_main {
+  padding: 20px;
+  .recover_password_title {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  #recover_password_form {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    .form_element {
+      margin-bottom: 20px;
+      input {
+        display: block;
+        box-sizing: border-box;
+        border: none;
+        background-color: variables.$gray;
+        padding: 10px 15px;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid #b4b4b4;
+        margin-top: 5px;
+        &.error {
+          background-color: rgba(255, 0, 0, 0.5);
+        }
+      }
+    }
+    .recover_password_button {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;
+      background-color: variables.$main-dark;
+      text-decoration: none;
+      color: variables.$white;
+      padding: 10px 30px 10px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// Admin page/ Timeline
+.admin_main {
+  background-color: variables.$white;
+  margin-left: 20px;
+  margin-right: 20px;
+  .hi_user {
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  .home_menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: variables.$darker-pink;
+    border: none;
+    padding: 15px 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .admin_left {
+    display: flex;
+    flex-direction: column;
+    .menu {
+      margin-bottom: 20px;
+    }
+    a {
+      text-decoration: none;
+      margin-bottom: 20px;
+      color: variables.$black;
+    }
+
+    &.hide_home_links {
+      display: none;
+    }
+  }
+  .admin_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &.hide_home_links {
+      display: none;
+    }
+    .talk_with_therapist {
+      padding: 5px 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .post {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: variables.$white;
+    padding: 20px;
+    h2 {
+      margin-bottom: 10px;
+    }
+    #post_text {
+      color: variables.$dark-gray;
+    }
+    #textButton {
+      background: none;
+      border: none;
+      padding: 0;
+      text-decoration: underline;
+      cursor: pointer;
+      color: variables.$medium-to-dark;
+    }
+    .author {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .author_image {
+        border-radius: 50px;
+        cursor: pointer;
+        height: 40px;
+        width: 40px;
+        border: 2px solid gray;
+        margin-right: 10px;
+      }
+    }
+
+    .likes {
+      display: flex;
+      align-items: center;
+      p {
+        margin-left: 5px;
+      }
+    }
+    .position_likes {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  }
+  /* like icon */
+  #like-button,
+  #dislike-button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+  }
+  .icon-like {
+    background-image: url("/assets/icon-like.svg");
+  }
+  .icon-liked {
+    background-image: url("/assets/icon-liked.svg");
+  }
+
+  #moreText {
+    display: none;
+  }
+}
+@media (min-width: variables.$tablet) {
+  .admin_main {
+    .home_menu {
+      display: none;
+    }
+    .admin_left {
+      &.hide_home_links {
+        display: flex;
+      }
+      a {
+        margin-bottom: 40px;
+        .fa {
+          margin-right: 10px;
+        }
+        &.selected {
+          background-color: variables.$main;
+          box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+          border-radius: 5px;
+          padding: 15px 5px;
+          box-sizing: border-box;
+          width: 80%;
+        }
+      }
+    }
+    .admin_right {
+      &.hide_home_links {
+        display: flex;
+      }
+    }
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    grid-row: 1fr auto;
+    grid-template-areas:
+      "user user user"
+      "left posts right";
+    .hi_user {
+      grid-area: user;
+      font-size: 30px;
+      margin-bottom: 30px;
+      color: variables.$medium-to-dark;
+    }
+    .admin_left {
+      grid-area: left;
+    }
+    #posts {
+      grid-area: posts;
+    }
+    .admin_right {
+      grid-area: right;
+      .talk_with_therapist {
+        background-color: variables.$main-dark;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// Profile Info
+.update_main {
+  .upload_image_messages {
+    text-align: center;
+  }
+  #update_image {
+    display: flex;
+    align-items: center;
+    max-width: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    #image_placeholder {
+      border-radius: 50px;
+      cursor: pointer;
+      height: 100px;
+      width: 100px;
+      border: 2px solid gray;
+      margin-right: 20px;
+    }
+    button {
+      font-size: 15px;
+      background: none;
+      border: none;
+      padding: 0;
+      text-decoration: underline;
+      cursor: pointer;
+      color: variables.$medium-to-dark;
+    }
+    input {
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+
+  #update_form {
+    max-width: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    .form_element {
+      margin-bottom: 20px;
+    }
+    input {
+      display: block;
+      box-sizing: border-box;
+      border: none;
+      background-color: variables.$gray;
+      padding: 10px 15px;
+      border-radius: 5px;
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid #b4b4b4;
+      margin-top: 5px;
+      &.error {
+        background-color: rgba(255, 0, 0, 0.5);
+      }
+    }
+    .submit_button {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: variables.$main-dark;
+      text-decoration: none;
+      color: variables.$white;
+      padding: 10px 30px 10px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+  }
+}
+// ----------------------------------------------------------
+// Admin view
+.therapist_main {
+  #form_search_for {
+    input {
+      width: 250px;
+      margin: 30px auto;
+      padding: 15px 30px 15px 30px;
+      border-radius: 10px;
+      border: none;
+      display: block;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+  }
+  #users {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    .user {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      margin: 10px;
+      // background-color: variables.$darker-pink;
+      box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+        rgba(17, 17, 26, 0.05) 0px 8px 32px;
+      border-radius: 10px;
+      width: 400px;
+      .full_name {
+        font-size: 25px;
+      }
+      .user_card_email,
+      .user_card_phone {
+        margin-top: 10px;
+      }
+      .user-img {
+        border-radius: 50px;
+        cursor: pointer;
+        height: 100px;
+        width: 100px;
+        border: 2px solid gray;
+        margin-right: 20px;
+      }
+      button {
+        padding: 10px 30px 10px 30px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        margin-top: 20px;
+        width: 150px;
+        &.active {
+          background-color: variables.$medium-to-dark;
+          color: variables.$white;
+        }
+        &:disabled {
+          background-color: variables.$light-gray;
+        }
+      }
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+}
+
+// .signup_main {
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+// }
+// ----------------------------------------------------------
+// Others for now
+// input,
+// form {
+//   display: block;
+//   margin-top: 1em;
+// }
+.hidden {
+  display: none;
+}
+.error {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.soft {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.show {
+  display: block;
+}

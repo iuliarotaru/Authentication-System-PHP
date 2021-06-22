@@ -1,59 +1,790 @@
-input,
-form {
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100vh;
+  font-family: "Open Sans", sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.close {
+  display: none;
+}
+
+nav #nav_links {
   display: block;
-  margin-top: 1em;
 }
-button {
-  margin-top: 2em;
-  background-color: pink;
+
+nav #nav_links.hide_nav_links {
+  display: none;
 }
-.error {
-  background: rgba(255, 0, 0, 0.5);
+
+.header {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(218, 199, 206, 0.45);
+  background-color: #ffeded;
 }
-.soft {
-  font-size: 0.8rem;
-  color: rgba(0, 0, 0, 0.3);
+
+nav #nav_links {
+  background-color: #ffeded;
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  box-shadow: 0px 2px 2px 2px rgba(218, 199, 206, 0.45);
 }
-.user-img {
+nav a {
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+  color: black;
+}
+nav .hamburger_icon {
+  position: fixed;
+  cursor: pointer;
+  top: 1rem;
+  right: 1rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.home_main .home_left {
+  background-color: #ffeded;
+}
+
+@media (min-width: 700px) {
+  .home_main {
+    background-color: #ffeded;
+  }
+  .home_main .home_left {
+    display: flex;
+    align-items: center;
+  }
+  .home_main .home_left h1 {
+    font-size: 70px;
+  }
+}
+@media (min-width: 1024px) {
+  .header {
+    background-color: #ffeded;
+  }
+  .header img {
+    background-color: #ffeded;
+  }
+  .header nav {
+    width: 85%;
+  }
+  .header .hamburger_icon {
+    display: none;
+  }
+  .header #visitor_nav #nav_links,
+.header a {
+    display: flex;
+    align-items: center;
+    background-color: #ffeded;
+    box-shadow: none;
+    top: 0;
+    left: auto;
+    right: auto;
+    position: inherit;
+    justify-content: space-between;
+  }
+  .header #visitor_nav #nav_links .desktop_signup,
+.header a .desktop_signup {
+    display: inline-block;
+    background-color: #2f4858;
+    text-decoration: none;
+    color: white;
+    padding: 10px 24px 10px 24px;
+    border-radius: 25px;
+  }
+  .header #visitor_nav #nav_links #left_nav_links,
+.header a #left_nav_links {
+    display: flex;
+    align-items: center;
+  }
+  .header #visitor_nav #nav_links #right_nav_links,
+.header a #right_nav_links {
+    display: flex;
+    align-items: center;
+  }
+
+  #logged_nav {
+    background-color: #ffeded;
+  }
+}
+#logged_nav#nav_links {
+  display: block;
+}
+
+#logged_nav#nav_links.hide_nav_links {
+  display: none;
+}
+
+#logged_nav {
+  width: auto;
+}
+#logged_nav #nav_links {
+  background-color: #ffeded;
+  position: absolute;
+  top: 105px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  box-shadow: 0px 2px 2px 2px rgba(218, 199, 206, 0.45);
+}
+#logged_nav a {
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+  color: black;
+  position: initial;
+}
+#logged_nav #logged_image_placeholder {
   width: 50%;
+  border-radius: 40px;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  border: 2px solid #2f4858;
 }
-.user {
+
+@media (min-width: 700px) {
+  #logged_nav #nav_links {
+    width: auto;
+    left: unset;
+  }
+}
+.display_error {
+  text-align: center;
+  color: red;
+  margin-top: 10px;
+}
+
+.display_notification {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.home_main {
+  flex: 1;
+}
+.home_main .home_page_illustration {
+  background-image: url("/assets/illustration.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 50vh;
+}
+
+.home_left {
   padding: 20px;
-  margin: 10px;
-  background-color: sandybrown;
 }
-#image_placeholder {
+.home_left h1 {
+  margin-top: 40px;
+  font-size: 40px;
+}
+.home_left h1 .heading_highlight {
+  color: #5b6478;
+}
+.home_left .signup_button {
+  display: inline-block;
+  background-color: #2f4858;
+  text-decoration: none;
+  color: white;
+  padding: 10px 24px 10px 24px;
+  margin-top: 40px;
+  border-radius: 25px;
+}
+.home_left .therapist_link {
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+}
+.home_left .therapist_link a {
+  margin-right: 10px;
+  color: black;
+}
+.home_left .therapist_link img {
+  width: 5%;
+}
+
+@media (min-width: 700px) {
+  .home_main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "left image";
+  }
+
+  .home_left {
+    grid-area: left;
+  }
+}
+.signup_main {
+  padding: 20px;
+}
+.signup_main .signup_title h1 {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+.signup_main #signup_form {
+  max-width: 300px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.signup_main #signup_form .form_element {
+  margin-bottom: 20px;
+}
+.signup_main #signup_form .form_element #image_placeholder {
   border-radius: 50px;
   cursor: pointer;
   height: 100px;
   width: 100px;
+  border: 2px solid gray;
+  flex-shrink: 0;
 }
-.hidden {
-  display: none;
-}
-.show {
+.signup_main #signup_form .form_element input {
   display: block;
 }
-/* like icon */
-#like-button,
-#dislike-button {
+.signup_main #signup_form .form_element input:not([type=file]) {
+  box-sizing: border-box;
+  border: none;
+  background-color: #fbfbfb;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #b4b4b4;
+  margin-top: 5px;
+}
+.signup_main #signup_form .form_element input:not([type=file]).error {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.signup_main #signup_form .upload_image {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.signup_main #signup_form .upload_image img {
+  margin-right: 10px;
+}
+.signup_main #signup_form .signup_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #2f4858;
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+@media (min-width: 700px) {
+  .signup_main {
+    display: block;
+    text-align: center;
+  }
+  .signup_main form {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+}
+.signup_main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.signup_main .verification_text {
+  text-align: center;
+  margin-top: 20px;
+}
+.signup_main .verification_illustration {
+  flex: 1;
+  background-image: url("/assets/verification-mail.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-height: 50vh;
+}
+
+.login_main {
+  padding: 20px;
+}
+.login_main .login_title h1 {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+.login_main #login_form {
+  max-width: 300px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login_main #login_form .form_element {
+  margin-bottom: 20px;
+}
+.login_main #login_form .form_element input {
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  background-color: #fbfbfb;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #b4b4b4;
+  margin-top: 5px;
+}
+.login_main #login_form .form_element input.error {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.login_main #login_form #login_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  background-color: #2f4858;
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.login_main #login_form .forgot_password {
+  display: flex;
+  justify-content: flex-end;
+}
+.login_main #login_form .forgot_password a {
+  text-decoration: none;
+}
+
+.forgot_password_main {
+  padding: 20px;
+}
+.forgot_password_main .forgot_password_title h1 {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+.forgot_password_main #forgot_password_form {
+  max-width: 300px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.forgot_password_main #forgot_password_form .form_element {
+  margin-bottom: 20px;
+}
+.forgot_password_main #forgot_password_form .form_element input {
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  background-color: #fbfbfb;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #b4b4b4;
+  margin-top: 5px;
+}
+.forgot_password_main #forgot_password_form .form_element input.error {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.forgot_password_main #forgot_password_form .forgot_password_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  background-color: #2f4858;
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.recover_password_main {
+  padding: 20px;
+}
+.recover_password_main .recover_password_title {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+.recover_password_main #recover_password_form {
+  max-width: 300px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.recover_password_main #recover_password_form .form_element {
+  margin-bottom: 20px;
+}
+.recover_password_main #recover_password_form .form_element input {
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  background-color: #fbfbfb;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #b4b4b4;
+  margin-top: 5px;
+}
+.recover_password_main #recover_password_form .form_element input.error {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.recover_password_main #recover_password_form .recover_password_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  background-color: #2f4858;
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.admin_main {
+  background-color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* like icon */
+}
+.admin_main .hi_user {
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.admin_main .home_menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #b2a4b1;
+  border: none;
+  padding: 15px 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.admin_main .admin_left {
+  display: flex;
+  flex-direction: column;
+}
+.admin_main .admin_left .menu {
+  margin-bottom: 20px;
+}
+.admin_main .admin_left a {
+  text-decoration: none;
+  margin-bottom: 20px;
+  color: black;
+}
+.admin_main .admin_left.hide_home_links {
+  display: none;
+}
+.admin_main .admin_right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.admin_main .admin_right.hide_home_links {
+  display: none;
+}
+.admin_main .admin_right .talk_with_therapist {
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.admin_main .post {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 20px;
+}
+.admin_main .post h2 {
+  margin-bottom: 10px;
+}
+.admin_main .post #post_text {
+  color: #7c7c7c;
+}
+.admin_main .post #textButton {
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #5b6478;
+}
+.admin_main .post .author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.admin_main .post .author .author_image {
+  border-radius: 50px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border: 2px solid gray;
+  margin-right: 10px;
+}
+.admin_main .post .likes {
+  display: flex;
+  align-items: center;
+}
+.admin_main .post .likes p {
+  margin-left: 5px;
+}
+.admin_main .post .position_likes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.admin_main #like-button,
+.admin_main #dislike-button {
   background-color: white;
   border: none;
   cursor: pointer;
 }
-.icon {
+.admin_main .icon {
   display: inline-block;
   width: 30px;
   height: 30px;
   background-size: cover;
 }
-.icon-like {
-  background-image: url(/icon-like.svg);
+.admin_main .icon-like {
+  background-image: url("/assets/icon-like.svg");
 }
-.icon-liked {
-  background-image: url(/icon-liked.svg);
+.admin_main .icon-liked {
+  background-image: url("/assets/icon-liked.svg");
 }
-
-#moreText {
+.admin_main #moreText {
   display: none;
 }
+
+@media (min-width: 700px) {
+  .admin_main {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    grid-row: 1fr auto;
+    grid-template-areas: "user user user" "left posts right";
+  }
+  .admin_main .home_menu {
+    display: none;
+  }
+  .admin_main .admin_left.hide_home_links {
+    display: flex;
+  }
+  .admin_main .admin_left a {
+    margin-bottom: 40px;
+  }
+  .admin_main .admin_left a .fa {
+    margin-right: 10px;
+  }
+  .admin_main .admin_left a.selected {
+    background-color: #ffeded;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+    border-radius: 5px;
+    padding: 15px 5px;
+    box-sizing: border-box;
+    width: 80%;
+  }
+  .admin_main .admin_right.hide_home_links {
+    display: flex;
+  }
+  .admin_main .hi_user {
+    grid-area: user;
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #5b6478;
+  }
+  .admin_main .admin_left {
+    grid-area: left;
+  }
+  .admin_main #posts {
+    grid-area: posts;
+  }
+  .admin_main .admin_right {
+    grid-area: right;
+  }
+  .admin_main .admin_right .talk_with_therapist {
+    background-color: #2f4858;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+}
+.update_main .upload_image_messages {
+  text-align: center;
+}
+.update_main #update_image {
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.update_main #update_image #image_placeholder {
+  border-radius: 50px;
+  cursor: pointer;
+  height: 100px;
+  width: 100px;
+  border: 2px solid gray;
+  margin-right: 20px;
+}
+.update_main #update_image button {
+  font-size: 15px;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #5b6478;
+}
+.update_main #update_image input.hidden {
+  display: none;
+}
+.update_main #update_form {
+  max-width: 300px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.update_main #update_form .form_element {
+  margin-bottom: 20px;
+}
+.update_main #update_form input {
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  background-color: #fbfbfb;
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #b4b4b4;
+  margin-top: 5px;
+}
+.update_main #update_form input.error {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+.update_main #update_form .submit_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #2f4858;
+  text-decoration: none;
+  color: white;
+  padding: 10px 30px 10px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.therapist_main #form_search_for input {
+  width: 250px;
+  margin: 30px auto;
+  padding: 15px 30px 15px 30px;
+  border-radius: 10px;
+  border: none;
+  display: block;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.therapist_main #users {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.therapist_main #users .user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  border-radius: 10px;
+  width: 400px;
+}
+.therapist_main #users .user .full_name {
+  font-size: 25px;
+}
+.therapist_main #users .user .user_card_email,
+.therapist_main #users .user .user_card_phone {
+  margin-top: 10px;
+}
+.therapist_main #users .user .user-img {
+  border-radius: 50px;
+  cursor: pointer;
+  height: 100px;
+  width: 100px;
+  border: 2px solid gray;
+  margin-right: 20px;
+}
+.therapist_main #users .user button {
+  padding: 10px 30px 10px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  margin-top: 20px;
+  width: 150px;
+}
+.therapist_main #users .user button.active {
+  background-color: #5b6478;
+  color: white;
+}
+.therapist_main #users .user button:disabled {
+  background-color: lightgrey;
+}
+.therapist_main #users .user.hidden {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.error {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.soft {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.show {
+  display: block;
+}
+
+/*# sourceMappingURL=styles.css.map */
