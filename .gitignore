@@ -1,3 +1,3 @@
 images/*
 !images/.gitkeep
-views/credentials.php
+send_emails/credentials.php

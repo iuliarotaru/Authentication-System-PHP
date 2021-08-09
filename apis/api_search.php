@@ -1,5 +1,4 @@
 <?php
-
 //Validate
 if (!isset($_POST['search_for'])) {
     $error_message = 'Could not display results';

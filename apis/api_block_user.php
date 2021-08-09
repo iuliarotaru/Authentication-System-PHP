@@ -13,12 +13,10 @@ if ($_SESSION['role'] != 2) {
     echo $error_message;
     exit();
 }
-require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
 require_once(__DIR__ . '/../db/db.php');
-
 // ----------------------------------------------------------
 // Connect to the db and delete user
-require_once(__DIR__ . '/../views/view_block_email.php');
+require_once(__DIR__ . '/../send_emails/send_block_email.php');
 
 try {
     $q = $db->prepare('SELECT * FROM users WHERE uuid=:user_uuid');

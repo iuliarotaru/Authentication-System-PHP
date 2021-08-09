@@ -8,7 +8,6 @@ if (!$_SESSION['uuid']) {
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
 require_once(__DIR__ . '/../db/db.php');
-
 try {
   $q = $db->prepare('SELECT name, last_name, email, phone, image_path FROM users WHERE uuid = :user_uuid');
   $q->bindValue(':user_uuid', $_SESSION['uuid']);
@@ -29,19 +28,19 @@ try {
     <form id="update_form">
       <div class="form_element">
         <label for="user_name">Name</label>
-        <input name="user_name" id="user_name" type="text" value="<?php echo $user->name ?>" onclick="clear_error()" maxlength="20" data-validate="str" data-min="2" data-max="20">
+        <input name="user_name" id="user_name" type="text" value="<?php echo $user->name ?>" onclick="clearError()" maxlength="20" data-validate="str" data-min="2" data-max="20">
       </div>
       <div class="form_element">
         <label for="user_last_name">Last name</label>
-        <input name="user_last_name" id="user_last_name" type="text" value="<?php echo $user->last_name ?>" onclick="clear_error()" maxlength="20" data-validate="str" data-min="2" data-max="20">
+        <input name="user_last_name" id="user_last_name" type="text" value="<?php echo $user->last_name ?>" onclick="clearError()" maxlength="20" data-validate="str" data-min="2" data-max="20">
       </div>
       <div class="form_element">
         <label for="user_email">Email</label>
-        <input name="user_email" id="user_email" type="email" value="<?php echo $user->email ?>" onclick="clear_error()" data-validate="email">
+        <input name="user_email" id="user_email" type="email" value="<?php echo $user->email ?>" onclick="clearError()" data-validate="email">
       </div>
       <div class="form_element">
         <label for="user_phone">Phone</label>
-        <input name="user_phone" id="user_phone" type="tel" value="<?php echo $user->phone ?>" onclick="clear_error()" data-validate="int" data-min="10000000 " data-max="99999999">
+        <input name="user_phone" id="user_phone" type="tel" value="<?php echo $user->phone ?>" onclick="clearError()" data-validate="int" data-min="10000000 " data-max="99999999">
       </div>
       <button type="submit" class="submit_button">Update profile</button>
     </form>
@@ -50,6 +49,8 @@ try {
 } catch (PDOException $ex) {
   echo $ex;
 }
-
+?>
+<script src="../javascript/general.js"></script>
+<?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_bottom.php');
 ?>

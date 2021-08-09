@@ -360,6 +360,9 @@ nav .hamburger_icon {
 .login_main #login_form .form_element input.error {
   background-color: rgba(255, 0, 0, 0.5);
 }
+.login_main #login_form .forgot_password a {
+  color: #7c7c7c;
+}
 .login_main #login_form #login_button {
   display: block;
   margin-left: auto;

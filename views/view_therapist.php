@@ -6,15 +6,13 @@ if (!isset($_SESSION['uuid'])) {
     exit();
 }
 if ($_SESSION['role'] != 2) {
-    header('Location: /admin');
+    header('Location: /customer');
     exit();
 }
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
 require_once(__DIR__ . '/../db/db.php');
 
 try {
-    // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $q = $db->prepare('SELECT * FROM users WHERE user_role = 1 ORDER BY active DESC');
     $q->execute();
     $users = $q->fetchAll();
@@ -42,7 +40,7 @@ try {
                 <?php
                 if ($user->active) {
                 ?>
-                    <button class="active" onclick="block_user('<?= $user->uuid ?>')">Block user</button>
+                    <button class="active" onclick="blockUser('<?= $user->uuid ?>')">Block user</button>
                 <?php
                 } else {
                 ?>
@@ -57,14 +55,16 @@ try {
         }
         echo '</div>';
         ?>
-        <!-- <a href="/logout">Log out</a> -->
     </div>
 <?php
 } catch (PDOException $ex) {
     echo $ex;
 }
 
-
-
+?>
+<script src="../javascript/general.js"></script>
+<script src="../javascript/block_user.js"></script>
+<script src="../javascript/search_user.js"></script>
+<?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_bottom.php');
 ?>

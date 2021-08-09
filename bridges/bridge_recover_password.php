@@ -57,8 +57,8 @@ try {
     $q->execute();
     $user = $q->fetch();
 
-    $display_error = "Your password has successfully been changed";
-    header("Location:/login?notification=$display_error");
+    $display_notification = "Your password has successfully been changed";
+    header("Location:/login?notification=$display_notification");
     exit();
 } catch (PDOException $ex) {
     echo $ex->getMessage();

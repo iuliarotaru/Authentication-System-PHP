@@ -1,5 +1,4 @@
 <?php
-
 // ----------------------------------------------------------
 // Backend Login validation
 
@@ -21,7 +20,6 @@ if (strlen($_POST['user_password']) > 50) {
     exit();
 }
 
-
 // ----------------------------------------------------------
 // Connect to db, check if the user exists, start session
 require_once(__DIR__ . '/../db/db.php');
@@ -40,23 +38,33 @@ try {
     }
 
     //If the user is found in the database
+
+    //If user is not active
+    if ($user->active == 0) {
+        $error_message = 'Your account has been deactivated';
+        header("Location: /login?error=$error_message");
+        exit();
+    }
+    //If user is not verified
+    if ($user->verified == 0) {
+        $error_message = 'You have to verify your account first';
+        header("Location: /login?error=$error_message");
+        exit();
+    }
+
+    //If password is incorrect
     if (!password_verify($_POST['user_password'], $user->password)) {
         $error_message = 'Your email or password are not correct';
         header("Location: /login?error=$error_message");
         exit();
     }
 
-    if ($user->active == 0) {
-        $error_message = 'Your account has been deactivated';
-        header("Location: /login?error=$error_message");
-        exit();
-    }
-
+    //Logged in successfully
     session_start();
     $_SESSION['uuid'] = $user->uuid;
     $_SESSION['role'] = $user->user_role;
     if ($user->user_role == 1) {
-        header('Location: /admin');
+        header('Location: /customer');
         exit();
     } else if ($user->user_role == 2) {
         header('Location: /therapist');
@@ -64,12 +72,4 @@ try {
     }
 } catch (PDOException $ex) {
     echo $ex;
-}
-
-
-function console_log($data)
-{
-    echo '<script>';
-    echo 'console.log(' . json_encode($data) . ')';
-    echo '</script>';
 }

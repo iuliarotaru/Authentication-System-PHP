@@ -30,8 +30,8 @@ try {
     //if exists, check if user is verified or not. If yes, send to login
     //with message "your account is already verified"  
     if ($user->verified == 1) {
-        $display_error = 'Your account is already verified';
-        header("Location: /login?notification=$display_error");
+        $display_notification = 'Your account is already verified';
+        header("Location: /login?notification=$display_notification");
         exit();
     }
 
@@ -43,8 +43,8 @@ try {
     $q->bindValue(':token', $token);
     $q->execute();
 
-    $display_error = 'Your account has been verified';
-    header("Location: /login?notification=$display_error");
+    $display_notification = 'Your account has been verified';
+    header("Location: /login?notification=$display_notification");
     exit();
 } catch (PDOException $ex) {
     echo $ex;

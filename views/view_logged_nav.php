@@ -1,8 +1,7 @@
 <?php
 require_once(__DIR__ . '/../db/db.php');
-
 try {
-    $q = $db->prepare('SELECT image_path FROM users WHERE uuid = :user_uuid'); //doar ce trebuie
+    $q = $db->prepare('SELECT image_path FROM users WHERE uuid = :user_uuid');
     $q->bindValue(':user_uuid', $_SESSION['uuid']);
     $q->execute();
     $user = $q->fetch();
@@ -12,7 +11,7 @@ try {
     }
 ?>
     <div class="header">
-        <a href="/admin">
+        <a href="/customer">
             <img src="/assets/logo.svg" alt="Logo" id="logo"></a>
 
         <nav id="logged_nav">
@@ -26,11 +25,12 @@ try {
             <a onclick="toggleHamburger()">
                 <img src="/images/<?= $user->image_path ?>" class="logged-user-img" id="logged_image_placeholder" /></a>
         </nav>
-
     </div>
-
-
 <?php
 } catch (PDOException $ex) {
     echo $ex;
 }
+?>
+<!-- <script src="../javascript/general.js"></script> -->
+
+<!-- // require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_bottom.php'); -->

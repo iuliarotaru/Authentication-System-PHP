@@ -1,4 +1,4 @@
-<script src="/validate.js"></script>
+<script src="../javascript/forms_handling.js"></script>
 </body>
 
 </html>

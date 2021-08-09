@@ -21,7 +21,6 @@ if (!isset($token)) {
     header("Location: /login?error=$display_error");
     exit();
 }
-
 //connect to db
 //check if the token is in the db
 require_once(__DIR__ . '/../db/db.php');
@@ -73,10 +72,3 @@ try {
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_bottom.php');
 
 ?>
-
-
-<!-- //redirect to view with password, confirm password, hidden input with the token
-
-//on submit redirect to a bridge that checks if the passwords match,
-//if they are verified, then update the table in users that has the same uuid
-//with the new password -->

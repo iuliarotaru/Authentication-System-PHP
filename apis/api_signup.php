@@ -1,7 +1,8 @@
 <?php
 // ----------------------------------------------------------
 // Backend Signup validation
-// Validation image
+
+// Validate image
 if ($_FILES['my_profile_image']['error']) {
     http_response_code(400);
     echo 'you have to upload a picture';
@@ -14,13 +15,13 @@ $extension = strrchr($image_type, '/'); // /png ... /tmp ... /jpg
 $extension = ltrim($extension, '/'); // png ... jpg ... plain
 if (!in_array($extension, $valid_extensions)) {
     $error_message = "Upload a valid image";
-    http_response_code(400); //header
+    http_response_code(400);
     echo $error_message;
     exit();
 }
 if ($image_size > 2000000) {
     $error_message = "Image size exceeds 2 MB";
-    http_response_code(400); //header
+    http_response_code(400);
     echo $error_message;
     exit();
 }
@@ -94,7 +95,7 @@ if ($_POST['user_confirm_password'] != $_POST['user_password']) {
 // ----------------------------------------------------------
 // Connect to the db and insert values
 require_once(__DIR__ . '/../db/db.php');
-require_once(__DIR__ . '/../views/view_email.php');
+require_once(__DIR__ . '/../send_emails/send_welcome_email.php');
 
 try {
     $name = $_POST['user_name'];
@@ -127,9 +128,7 @@ try {
         exit();
     }
     $url = 'http://' . $_SERVER['HTTP_HOST'] . "/verify/$token";
-    // $url = gethostname()."/verify/$token";
     send_email($email, $url);
-
     http_response_code(200);
     exit();
 } catch (PDOException $ex) {

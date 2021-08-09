@@ -7,8 +7,6 @@ if (!isset($_SESSION['uuid'])) {
 
 require_once(__DIR__ . '/../db/db.php');
 try {
-    // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $q = $db->prepare('UPDATE users
 SET active=:user_active
 WHERE uuid=:user_uuid');
@@ -16,7 +14,7 @@ WHERE uuid=:user_uuid');
     $q->bindValue(':user_uuid', $_SESSION['uuid']);
     $q->execute();
     if (!$q->rowCount()) {
-        header('Location: /admin');
+        header('Location: /customer');
         exit();
     }
     session_destroy();

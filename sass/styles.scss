@@ -362,6 +362,11 @@ nav {
         }
       }
     }
+    .forgot_password {
+      a {
+        color: variables.$dark-gray;
+      }
+    }
     #login_button {
       display: block;
       margin-left: auto;

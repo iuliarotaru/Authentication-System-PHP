@@ -56,7 +56,7 @@
        <?php
         foreach ($posts as $post) {
         ?>
-         <div class="post">
+         <div class="post" id="<?= $post->post_id ?>">
            <h2><?= $post->title ?></h2>
            <p id="post_text"><?= substr($post->body, 0, 300) ?><span id="points">...</span><span id="moreText"><?= substr($post->body, 300) ?></span>
              <button onclick="toggleText()" id="textButton">Read more</button>
@@ -69,8 +69,8 @@
              <div class="likes">
                <div>
                  <?php if (!$post->like_id) { ?>
-                   <button id="like-button" class="icon icon-like" onclick="like_post('<?= $post->post_id ?>')"> </button> <?php } else { ?>
-                   <button id="dislike-button" class="icon icon-liked" onclick="dislike_post('<?= $post->post_id ?>')"></button> <?php } ?>
+                   <button id="like-button" class="icon icon-like" onclick="likePost('<?= $post->post_id ?>')"> </button> <?php } else { ?>
+                   <button id="dislike-button" class="icon icon-liked" onclick="dislikePost('<?= $post->post_id ?>')"></button> <?php } ?>
                </div>
                <p id="likes"><?= $post->likes ?></p>
              </div>
@@ -86,5 +86,9 @@
     echo $ex;
   }
 
+  ?>
+ <script src="../javascript/general.js"></script>
+ <script src="../javascript/like_dislike_post.js"></script>
+ <?php
   require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_bottom.php');
   ?>

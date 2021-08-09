@@ -24,9 +24,6 @@ if ($image_size > 2000000) {
     echo $error_message;
     exit();
 }
-require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
-require_once(__DIR__ . '/../db/db.php');
-
 // ----------------------------------------------------------
 // Connect to the db and update image
 require_once(__DIR__ . '/../db/db.php');
@@ -36,9 +33,6 @@ try {
     $random_image_name = bin2hex(random_bytes(16)) . ".$extension";
     move_uploaded_file($_FILES['my_updated_image']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "/images/" . $random_image_name);
     session_start();
-    // http_response_code(400);
-    // echo $_SESSION['uuid'];
-    // exit();
     $q = $db->prepare('UPDATE users SET image_path=:image_path WHERE uuid=:uuid');
     $q->bindValue(':uuid', $_SESSION['uuid']);
     $q->bindValue(':image_path', $random_image_name);

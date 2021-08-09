@@ -47,7 +47,7 @@ if (!preg_match('/^[a-z0-9]+[\._]?[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$/', $
 // ----------------------------------------------------------
 // Connect to the db and update values
 require_once(__DIR__ . '/../db/db.php');
-require_once(__DIR__ . '/../views/view_email.php');
+require_once(__DIR__ . '/../send_emails/send_welcome_email.php');
 
 try {
     $name = $_POST['user_name'];

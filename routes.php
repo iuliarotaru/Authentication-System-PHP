@@ -1,5 +1,4 @@
 <?php
-
 require_once("{$_SERVER['DOCUMENT_ROOT']}/router.php");
 
 // ##################################################
@@ -7,22 +6,18 @@ require_once("{$_SERVER['DOCUMENT_ROOT']}/router.php");
 // ##################################################
 get('/', 'views/view_home.php');
 get('/about-us', 'views/view_about_us.php');
-get('/admin', 'views/view_admin.php');
-// get('/email', 'views/view_email.php');
+get('/customer', 'views/view_customer.php');
 get('/delete', 'bridges/bridge_delete_account.php');
 get('/forgot-password', 'views/view_forgot_password.php');
 get('/login', 'views/view_login.php');
-// get('/login/error/$display_message', 'views/view_login.php');
 get('/logout', 'bridges/bridge_logout.php');
 get('/profile', 'views/view_profile.php');
 get('/signup', 'views/view_signup.php');
-// get('/signup/error/$display_message', 'views/view_signup.php');
 get('/users', 'views/view_users.php');
 get('/update', 'views/view_update.php');
 get('/therapist', 'views/view_therapist.php');
 get('/verify/$token', 'bridges/bridge_verify.php');
 get('/verify-recover/$token', 'views/view_recover_password.php');
-// get('/verify-recover/$token/error/$display_message', 'views/view_recover_password.php');
 
 // ##################################################
 // ##################################################

@@ -1,8 +1,8 @@
 <?php
 //Check if there is a session already
 session_start();
-if ($_SESSION['uuid']) {
-    header('Location: /admin');
+if (isset($_SESSION['uuid'])) {
+    header('Location: /customer');
     exit();
 }
 ?>

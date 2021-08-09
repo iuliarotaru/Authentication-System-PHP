@@ -11,14 +11,17 @@ if (!isset($post_id)) {
     echo 'Invalid id';
     exit();
 }
+// if (!ctype_digit($post_id)) {
+//     http_response_code(400);
+//     echo 'Invalid id';
+//     exit();
+// }
 if ($like_or_dislike != 0 && $like_or_dislike != 1) {
     http_response_code(400);
     echo 'Invalid like or dislike';
     exit();
 }
-require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
 require_once(__DIR__ . '/../db/db.php');
-
 // ----------------------------------------------------------
 // Connect to the db insert or delete a row
 try {

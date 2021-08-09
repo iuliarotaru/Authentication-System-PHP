@@ -35,7 +35,7 @@ function send_email($email)
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = 'Blocked account';
-        $mail->Body    = "Your account has been blocked.You won't been able to log in to your account. Please contact our customer support for more information";
+        $mail->Body    = "<p style='padding:5px'>Your account has been blocked.</p><br><p style='padding:5px'>You won't been able to log in to your account.</p><br><p style='padding:5px'>Please contact our customer support for more information</p>";
         $mail->AltBody = "Your account has been blocked. You wont' be able to log in to your account. Please contact our customer support for more information";
 
         $mail->send();
